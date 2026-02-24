@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Ecosystem for Engineering</title>
+  <meta name="description" content="An integrated AI ecosystem across the College of Engineering: curriculum, research, industry upskilling, capstone, and cross-departmental collaboration." />
+  <style>
+    :root{
+      --bg:#f0f4ff;
+      --panel:#ffffff;
+      --panel2:#fafbff;
+      --text:#1a2744;
+      --muted:#5a6b8c;
+      --accent:#0ea5e9;
+      --accent2:#10b981;
+      --line:#c7d2fe;
+      --chip:#e0e7ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --max: 1140px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 25%, #fce7f3 50%, #e0e7ff 75%, #f0fdf4 100%) fixed;
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 64px;}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0 18px;
+      gap:14px;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center; text-decoration:none;
+      min-width: 260px;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, #0ea5e9, #10b981);
+      border:1px solid #0ea5e9;
+      display:grid; place-items:center;
+      box-shadow: var(--shadow);
+      font-family: var(--mono);
+      font-weight:800;
+      letter-spacing:-.02em;
+      color: white;
+    }
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{
+      text-decoration:none; padding:10px 12px; border-radius:12px;
+      color:var(--muted);
+      border:1px solid transparent;
+      white-space:nowrap;
+    }
+    nav a:hover{border-color:#0ea5e9; color:var(--text); background:rgba(14,165,233,.08)}
+    .hero{
+      display:block;
+      margin-top:14px;
+    }
+    @media (max-width: 980px){
+      .brand{min-width:auto}
+    }
+    .card{
+      background: rgba(255,255,255,.90);
+      border:1px solid rgba(14,165,233,.20);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .grid4 .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.12);
+      border-color: rgba(14,165,233,.35);
+    }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(14,165,233,.12);
+      border:1px solid rgba(14,165,233,.25);
+      color:var(--muted);
+      font-size: 13px;
+      flex-wrap:wrap;
+    }
+    .kicker b{color:var(--text)}
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing:-0.02em;
+      line-height:1.1;
+    }
+    .lead{
+      margin: 10px 0 18px;
+      color:var(--muted);
+      font-size: clamp(16px, 1.35vw, 18px);
+    }
+    .cta{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid #0ea5e9;
+      background: rgba(14,165,233,.10);
+      text-decoration:none;
+      font-weight:650;
+    }
+    .btn:hover{background: rgba(14,165,233,.20)}
+    .btn.primary{
+      border-color: #10b981;
+      background: rgba(16,185,129,.15);
+    }
+    .btn.primary:hover{background: rgba(16,185,129,.25)}
+    .mini{
+      font-size: 13px; color:var(--muted);
+    }
+    .grid3{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:16px;
+    }
+    @media (max-width: 980px){ .grid3{grid-template-columns:1fr} }
+    .grid4{
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; margin-top:22px;
+    }
+    @media (max-width: 980px){ .grid4{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width: 640px){ .grid4{grid-template-columns:1fr} }
+    .tile{
+      padding:16px;
+      border-radius:16px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(14,165,233,.20);
+    }
+    .tile h3{margin:0 0 6px; font-size:16px}
+    .tile p{margin:0; color:var(--muted); font-size:14px}
+    .section{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .section{grid-template-columns:1fr} }
+    .list{
+      margin:10px 0 0; padding:0; list-style:none;
+      display:grid; gap:10px;
+    }
+    .list li{
+      padding:12px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.50);
+      border:1px solid rgba(14,165,233,.18);
+      color:var(--muted);
+    }
+    .list li b{color:var(--text)}
+    .subareas{
+      margin-top:16px;
+      padding:16px;
+      border-radius:16px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(14,165,233,.22);
+    }
+    .subareas h3{margin:0 0 10px; font-size:16px}
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.75);
+      border:1px solid rgba(14,165,233,.25);
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip:hover{border-color:#10b981; color:var(--text); background: rgba(16,185,129,.15)}
+    .chip a{ text-decoration:none; }
+    .foot{
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px solid rgba(14,165,233,.20);
+      display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .diagram{
+      padding:16px;
+      background: rgba(255,255,255,.60);
+      border:1px solid rgba(14,165,233,.22);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .diagram-title{
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+      margin:0 0 10px;
+    }
+    .diagram-title h2{margin:0; font-size:16px}
+    .diagram-title span{color:var(--muted); font-size:12px}
+    svg{width:100%; height:auto; display:block}
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); border:0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#">
+        <div class="logo">AI</div>
+        <div>
+          <div style="font-weight:850; letter-spacing:-.01em;">AI Ecosystem for Engineering</div>
+        </div>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#impact">Strategic Impact</a>
+        <a href="#departments">Departments</a>
+        <a href="#scaling">Scaling Plan</a>
+        <a href="#capstone">Capstone</a>
+        <a href="#industry">Industry</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <!-- Hero intro -->
+      <section class="card" aria-labelledby="hero-title">
+        <div class="kicker">
+          <span>Engineering &times; AI</span>
+          <span style="opacity:.55;">&bull;</span>
+          <b>College-Wide Ecosystem</b>
+          <span style="opacity:.55;">&bull;</span>
+          <span>Curriculum &rarr; Research &rarr; Impact</span>
+        </div>
+
+        <h1 id="hero-title">The AI Ecosystem for Engineering Education</h1>
+
+        <p class="lead">
+          AI is not a single course or a standalone elective. It is a horizontal capability that every engineering discipline needs - connecting
+          theory, design, experimentation, computation, systems, and deployment. We propose an <b>AI Ecosystem for the College of Engineering</b>:
+          a coordinated framework of foundational courses, discipline-specific integration, research pathways, industry upskilling,
+          and capstone experiences designed to ensure <b>AI fluency for every engineering graduate</b>.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="#ecosystem" aria-label="Explore the AI ecosystem diagram">
+            Explore the Ecosystem
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="btn" href="#impact" aria-label="View strategic impact">
+            Strategic Impact
+            <span aria-hidden="true">&nearr;</span>
+          </a>
+          <span class="mini">Department Heads &bull; Faculty &bull; Students &bull; Industry Partners</span>
+        </div>
+      </section>
+
+      <!-- Ecosystem diagram -->
+      <section class="card diagram" id="ecosystem" aria-label="AI ecosystem diagram" style="margin-top:22px;">
+        <div class="diagram-title">
+          <h2>AI Ecosystem View</h2>
+          <span>Curriculum &bull; Research &bull; Industry</span>
+        </div>
+
+        <p class="sr-only">
+          Diagram showing a layered AI stack (foundations to impact) with a surrounding ring of enabling activities:
+          seminars, research pathways, and short courses.
+        </p>
+
+        <svg viewBox="0 0 900 760" role="img" aria-label="Layered AI ecosystem diagram">
+          <defs>
+            <linearGradient id="gPanel" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="rgba(14,165,233,0.12)"/>
+              <stop offset="1" stop-color="rgba(16,185,129,0.10)"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="rgba(0,0,0,.10)" />
+            </filter>
+          </defs>
+
+          <!-- Outer ring -->
+          <circle cx="450" cy="380" r="320" fill="none" stroke="rgba(14,165,233,.35)" stroke-width="3"/>
+          <circle cx="450" cy="380" r="278" fill="none" stroke="rgba(16,185,129,.30)" stroke-width="2" stroke-dasharray="8 10"/>
+
+          <!-- Ring labels -->
+          <g filter="url(#shadow)">
+            <rect x="315" y="55" width="270" height="58" rx="16" fill="rgba(255,255,255,.92)" stroke="rgba(14,165,233,.35)"/>
+            <text x="450" y="92" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="700">Seminars &amp; Colloquia</text>
+          </g>
+
+          <g filter="url(#shadow)">
+            <rect x="675" y="320" width="190" height="120" rx="18" fill="rgba(255,255,255,.92)" stroke="rgba(14,165,233,.35)"/>
+            <text x="770" y="360" text-anchor="middle" fill="#1a2744" font-size="16" font-weight="700">Sprint Courses</text>
+            <text x="770" y="384" text-anchor="middle" fill="#5a6b8c" font-size="13">Industry Upskilling</text>
+            <text x="770" y="408" text-anchor="middle" fill="#5a6b8c" font-size="13">Workshops &amp; Bootcamps</text>
+          </g>
+
+          <g filter="url(#shadow)">
+            <rect x="10" y="320" width="200" height="120" rx="18" fill="rgba(255,255,255,.92)" stroke="rgba(14,165,233,.35)"/>
+            <text x="110" y="355" text-anchor="middle" fill="#1a2744" font-size="16" font-weight="700">Research Pathways</text>
+            <text x="110" y="377" text-anchor="middle" fill="#5a6b8c" font-size="13">Undergraduate Research</text>
+            <text x="110" y="399" text-anchor="middle" fill="#5a6b8c" font-size="13">Labs &amp; Mentored Projects</text>
+            <text x="110" y="421" text-anchor="middle" fill="#5a6b8c" font-size="13">AI + Grand Challenges</text>
+          </g>
+
+          <!-- Central stack container -->
+          <g filter="url(#shadow)">
+            <rect x="235" y="150" width="430" height="460" rx="26" fill="url(#gPanel)" stroke="rgba(14,165,233,.30)" stroke-width="2"/>
+          </g>
+
+          <!-- Stack layers -->
+          <g>
+            <rect x="265" y="520" width="370" height="70" rx="18" fill="rgba(219,234,254,.85)" stroke="rgba(14,165,233,.40)"/>
+            <text x="450" y="550" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="800">Core Competencies</text>
+            <text x="450" y="574" text-anchor="middle" fill="#5a6b8c" font-size="13">
+              Computing &bull; Problem Solving &bull; Communication &bull; Collaboration
+            </text>
+          </g>
+
+          <g>
+            <rect x="265" y="440" width="370" height="70" rx="18" fill="rgba(209,250,229,.85)" stroke="rgba(16,185,129,.40)"/>
+            <text x="450" y="470" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="800">
+              Foundational AI Course (College-Wide)
+            </text>
+            <text x="450" y="494" text-anchor="middle" fill="#5a6b8c" font-size="13">
+              Shared language &bull; Core models &bull; Responsible practice
+            </text>
+          </g>
+
+          <g>
+            <rect x="265" y="350" width="370" height="90" rx="18" fill="rgba(254,240,138,.85)" stroke="rgba(245,158,11,.40)"/>
+            <text x="450" y="376" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="800">AI Across Engineering Disciplines</text>
+            <text x="450" y="394" text-anchor="middle" fill="#5a6b8c" font-size="13" font-weight="700">
+              Integrated with Project-Based Learning
+            </text>
+            <text x="450" y="410" text-anchor="middle" fill="#5a6b8c" font-size="11">
+              Aero &bull; BMEN &bull; CHEN &bull; CVEN &bull; CSE &bull; ECE &bull; ETID
+            </text>
+            <text x="450" y="424" text-anchor="middle" fill="#5a6b8c" font-size="11">
+              ISEN &bull; MSEN &bull; MEEN &bull; NUEN &bull; OCEN &bull; PETE
+            </text>
+          </g>
+
+          <g>
+            <rect x="265" y="280" width="370" height="70" rx="18" fill="rgba(251,207,232,.85)" stroke="rgba(236,72,153,.40)"/>
+            <text x="450" y="310" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="800">Capstone: Real-World AI</text>
+            <text x="450" y="334" text-anchor="middle" fill="#5a6b8c" font-size="13">
+              Industry problems &bull; Deployment mindset &bull; End-to-end systems
+            </text>
+          </g>
+
+          <g>
+            <rect x="265" y="200" width="370" height="70" rx="18" fill="rgba(221,214,254,.85)" stroke="rgba(139,92,246,.40)"/>
+            <text x="450" y="230" text-anchor="middle" fill="#1a2744" font-size="18" font-weight="800">Graduate Research Portfolio</text>
+            <text x="450" y="254" text-anchor="middle" fill="#5a6b8c" font-size="13">
+              Theory &bull; Experiments &bull; Systems &bull; Applications
+            </text>
+          </g>
+
+          <text x="450" y="618" text-anchor="middle" fill="#5a6b8c" font-size="12">
+            The &ldquo; ecosystem&rdquo; connects layers; the ring keeps the ecosystem current and high-velocity.
+          </text>
+
+          <!-- Connectors from ring to stack -->
+          <line x1="450" y1="113" x2="450" y2="200" stroke="rgba(14,165,233,.40)" stroke-width="2"/>
+          <line x1="210" y1="380" x2="235" y2="395" stroke="rgba(14,165,233,.40)" stroke-width="2"/>
+          <line x1="665" y1="380" x2="635" y2="395" stroke="rgba(14,165,233,.40)" stroke-width="2"/>
+        </svg>
+
+        <div style="margin-top:12px; color:var(--muted); font-size:13px;">
+          <b style="color:var(--text);">How to read this:</b>
+          the center stack is the student &amp; research journey; the outer ring is the enabling activity that keeps the ecosystem evolving.
+        </div>
+      </section>
+
+      <!-- Strategic Impact -->
+      <section class="card" id="impact" style="margin-top:22px;">
+        <h2 style="margin:0 0 6px;">Why This Matters: Strategic Impact</h2>
+        <p style="margin:0 0 16px; color:var(--muted); font-size:15px;">
+          An AI-first College of Engineering creates compounding advantages across recruitment, reputation, funding, and workforce outcomes.
+        </p>
+        <div class="grid3" role="list" aria-label="Strategic impact areas">
+          <div class="tile" role="listitem">
+            <h3>Student Recruitment</h3>
+            <p>An &ldquo;AI-first&rdquo; college attracts top students nationally who want AI integrated into their discipline&mdash;not siloed in CS.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <h3>Rankings &amp; Reputation</h3>
+            <p>A visible, structured AI ecosystem signals innovation to U.S. News, employers, and peer institutions alike.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <h3>Research Funding</h3>
+            <p>Cross-departmental AI proposals are larger, more competitive, and aligned with federal priorities (NSF, DOD, DOE, NIH).</p>
+          </div>
+          <div class="tile" role="listitem">
+            <h3>Industry Partnerships</h3>
+            <p>Shared upskilling programs and capstone pipelines across departments create deeper, more sustainable industry relationships.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <h3>Workforce Readiness</h3>
+            <p>Every engineering graduate leaves AI-fluent, regardless of discipline, meeting the #1 demand from employers.</p>
+          </div>
+          <div class="tile" role="listitem">
+            <h3>Interdisciplinary Innovation</h3>
+            <p>Shared AI infrastructure breaks silos: ME + ECE on robotics, CHEN + CSE on molecular design, CE + IE on smart cities.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content tiles -->
+      <section class="card" style="margin-top:22px;">
+        <div class="section">
+          <div class="tile">
+            <h3>What the ecosystem enables</h3>
+            <ul class="list">
+              <li><b>AI fluency for every graduate</b>&mdash;from foundational models to discipline-specific application and deployment.</li>
+              <li><b>AI across the stack</b>&mdash;methods grounded in engineering context (data, physics, design, systems).</li>
+              <li><b>Research at scale</b>&mdash;cross-departmental AI proposals, shared compute, and collaborative labs.</li>
+              <li><b>Continuous upskilling</b>&mdash;industry-aligned short courses and workshops open to all departments.</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Proven model, ready to scale</h3>
+            <ul class="list">
+              <li><b>ECE as proof of concept</b>&mdash;this ecosystem has been designed and piloted at the department level in ECE.</li>
+              <li><b>Modular architecture</b>&mdash;each department plugs in with discipline-specific AI modules on a shared foundation.</li>
+              <li><b>Shared infrastructure</b>&mdash;one AI foundation course, common seminar series, joint capstone pipeline.</li>
+              <li><b>Low marginal cost</b>&mdash;adding departments leverages existing courses, tools, and partnerships.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Departments: explicit + clickable -->
+        <div class="subareas" id="departments" aria-label="Engineering departments">
+          <h3>AI integrated across engineering departments</h3>
+          <p style="margin:0 0 12px; color:var(--muted); font-size:14px;">
+            Each department integrates AI where it fits&mdash;guided by domain constraints, data realities, and engineering outcomes.
+          </p>
+          <ul class="chips">
+            <li class="chip"><a href="#aero">Aerospace Engineering</a></li>
+            <li class="chip"><a href="#bmen">Biomedical Engineering</a></li>
+            <li class="chip"><a href="#cheme">Chemical Engineering</a></li>
+            <li class="chip"><a href="#cven">Civil Engineering</a></li>
+            <li class="chip"><a href="#cse">Computer Science &amp; Engineering</a></li>
+            <li class="chip"><a href="#ece">Electrical &amp; Computer Engineering</a></li>
+            <li class="chip"><a href="#etid">Engineering Technology &amp; Industrial Distribution</a></li>
+            <li class="chip"><a href="#isen">Industrial &amp; Systems Engineering</a></li>
+            <li class="chip"><a href="#msen">Materials Science &amp; Engineering</a></li>
+            <li class="chip"><a href="#meen">Mechanical Engineering</a></li>
+            <li class="chip"><a href="#nuen">Nuclear Engineering</a></li>
+            <li class="chip"><a href="#ocen">Ocean Engineering</a></li>
+            <li class="chip"><a href="#pete">Petroleum Engineering</a></li>
+          </ul>
+        </div>
+
+        <div class="foot">
+          <div><b>Get involved:</b> lead a departmental AI module, co-sponsor a capstone, or join the college AI steering committee.</div>
+          <div style="font-family:var(--mono); opacity:.9;">contact: ai-ecosystem@engineering.tamu.edu</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Scaling Plan -->
+    <section class="card" id="scaling" style="margin-top:22px;">
+      <h2 style="margin:0 0 8px;">Scaling Plan: Department &rarr; College</h2>
+      <p style="margin:0 0 16px; color:var(--muted);">
+        ECE is building and testing this operating system at the department level. Here is how it scales college-wide.
+      </p>
+      <div class="grid3">
+        <div class="tile">
+          <h3>Phase 1: Foundation</h3>
+          <p>Launch a college-wide foundational AI course shared across all departments. Establish common language and responsible practice.</p>
+        </div>
+        <div class="tile">
+          <h3>Phase 2: Integration</h3>
+          <p>Each department develops discipline-specific AI modules that plug into the shared foundation. Faculty training and support provided.</p>
+        </div>
+        <div class="tile">
+          <h3>Phase 3: Acceleration</h3>
+          <p>Joint capstone projects, cross-departmental research proposals, college-wide AI seminar series, and shared industry partnerships.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder sections -->
+    <section class="card" id="capstone" style="margin-top:16px;">
+      <h2 style="margin:0 0 8px;">Capstone: AI for Real-World Problems</h2>
+      <p style="margin:0; color:var(--muted);">
+        A capstone pathway focused on end-to-end engineering: data &rarr; models &rarr; constraints &rarr; evaluation &rarr; deployment &rarr; responsibility.
+        Cross-departmental teams tackle industry-sponsored problems that require AI + domain expertise.
+      </p>
+    </section>
+
+    <section class="card" id="industry" style="margin-top:16px;">
+      <h2 style="margin:0 0 8px;">Industry Short Courses &amp; Upskilling</h2>
+      <p style="margin:0; color:var(--muted);">
+        Short courses, bootcamps, and workshops&mdash;co-designed with industry&mdash;to keep skills aligned with rapidly changing practice. Open to professionals across all engineering disciplines.
+      </p>
+    </section>
+
+    <!-- Department cards -->
+    <section style="margin-top:32px;">
+      <h2 style="margin:0 0 18px; font-size:clamp(24px, 2.5vw, 32px);">AI Across Engineering Departments</h2>
+      <div class="grid4">
+        <div class="card" id="aero">
+          <h3 style="margin:0 0 8px; font-size:17px;">Aerospace Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Autonomous flight, simulation, design optimization, space systems, and mission planning.</p>
+        </div>
+        <div class="card" id="bmen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Biomedical Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Medical imaging, diagnostics, wearable devices, drug discovery, and personalized medicine.</p>
+        </div>
+        <div class="card" id="cheme">
+          <h3 style="margin:0 0 8px; font-size:17px;">Chemical Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Process optimization, molecular design, reaction modeling, and sustainable energy systems.</p>
+        </div>
+        <div class="card" id="cven">
+          <h3 style="margin:0 0 8px; font-size:17px;">Civil Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Structural health monitoring, smart infrastructure, transportation networks, and climate resilience.</p>
+        </div>
+        <div class="card" id="cse">
+          <h3 style="margin:0 0 8px; font-size:17px;">Computer Science &amp; Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Core AI/ML algorithms, large language models, software systems, and data infrastructure.</p>
+        </div>
+        <div class="card" id="ece">
+          <h3 style="margin:0 0 8px; font-size:17px;">Electrical &amp; Computer Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Signals, hardware accelerators, embedded AI, cybersecurity, and communications systems.</p>
+        </div>
+        <div class="card" id="etid">
+          <h3 style="margin:0 0 8px; font-size:17px;">Engineering Technology &amp; Industrial Distribution</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Applied AI in manufacturing systems, quality control, supply chain technology, and workforce automation.</p>
+        </div>
+        <div class="card" id="isen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Industrial &amp; Systems Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Supply chain optimization, human factors, operations research, and decision analytics.</p>
+        </div>
+        <div class="card" id="msen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Materials Science &amp; Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Materials discovery, property prediction, characterization automation, and alloy design.</p>
+        </div>
+        <div class="card" id="meen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Mechanical Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Robotics, digital twins, advanced manufacturing, thermal systems, and autonomous vehicles.</p>
+        </div>
+        <div class="card" id="nuen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Nuclear Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Reactor monitoring, safety systems, predictive maintenance, and radiation detection.</p>
+        </div>
+        <div class="card" id="ocen">
+          <h3 style="margin:0 0 8px; font-size:17px;">Ocean Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Autonomous marine vehicles, ocean modeling, coastal resilience, and subsea systems.</p>
+        </div>
+        <div class="card" id="pete">
+          <h3 style="margin:0 0 8px; font-size:17px;">Petroleum Engineering</h3>
+          <p style="margin:0; color:var(--muted); font-size:14px;">Reservoir simulation, drilling optimization, production forecasting, and energy transition.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap" style="padding:22px 0 0;">
+      <div class="foot">
+        <div>&copy; <span id="year"></span> AI Ecosystem for Engineering &bull; A scalable model for AI-first engineering education.</div>
+        <div style="font-family:var(--mono);">last updated: <span id="updated"></span></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const d = new Date();
+    document.getElementById("year").textContent = d.getFullYear();
+    document.getElementById("updated").textContent = d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+  </script>
+</body>
+</html>
